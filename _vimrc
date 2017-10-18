@@ -18,7 +18,7 @@ set termencoding=utf-8
 set fileencodings=utf-8,cp1251
 set encoding=utf-8
 set sessionoptions=curdir
-set clipboard=unnamed
+set clipboard^=unnamed
 set title
 set mouse=a
 set autoread
@@ -42,6 +42,7 @@ set smarttab
 set shiftwidth=4
 set tabstop=4
 set autoindent
+set expandtab " spaces instead of tabs
 
 " Prepare DEBUG register
 let @d="--DEBUG--"
