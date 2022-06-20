@@ -24,6 +24,7 @@ set clipboard=unnamed
 set mouse=a
 set scrolloff=7
 set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<,space:· "pretty highlight invisible symbols
+set wrap
 let @m="Версия SBC сдвинута\n\n"
 
 let g:TerminusFocusReporting=0 "supress E349 https://stackoverflow.com/questions/43533302/e349-no-identifier-under-cursor
@@ -99,6 +100,9 @@ augroup AutoCommandGroup
 	autocmd!
 	autocmd bufwritepost .vimrc source $MYVIMRC "Auto reload saved vimrc
 augroup END
+
+" Quick open two side diff
+:command V :vnew<bar>difft<bar>:wincmd w<bar>:difft<bar>
 
 " Integrated terminal
 nnoremap <leader>t :wincmd v<bar> :wincmd l<bar> :term <CR>
