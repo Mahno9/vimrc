@@ -43,6 +43,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'morhetz/gruvbox'
 Plug 'jremmen/vim-ripgrep'
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-rhubarb' " Extension for fugitive - github
 Plug 'vim-utils/vim-man'
 Plug 'git@github.com:kien/ctrlp.vim.git'
 "Plug 'git@github.com:Valloric/YouCompleteMe.git'
@@ -50,6 +51,7 @@ Plug 'mbbill/undotree'
 Plug 'voldikss/vim-floaterm'
 Plug 'tpope/vim-commentary'
 Plug 'airblade/vim-gitgutter'
+Plug 'bfrg/vim-cpp-modern'
 
 call plug#end()
 
@@ -73,8 +75,8 @@ let g:netrw_winsize=50 " %
 "Disable cache since CtrlP is fast (?) enough
 let g:ctrlp_use_caching=1
 
-"nnoremap j gj
-"nnoremap k gk
+nnoremap j gj
+nnoremap k gk
 nnoremap H gT
 nnoremap L gt
 
@@ -96,17 +98,24 @@ nnoremap <leader>ss :set syntax=
 " Swap Path slashes
 nnoremap <leader>sp :s/\\/\//g<CR>
 " Filter lines
-nnoremap <leader>gf :v//d<left><left>
+nnoremap <leader>ef :v//d<left><left>
+nnoremap <leader>e0 :v/0_0/d<CR>
 " Remove lines
-nnoremap <leader>gd :g//d<left><left>
+nnoremap <leader>ed :g//d<left><left>
+
+" Replace substrings
+nnoremap <leader>er :%s///g<left><left><left>
 
 
 "ripgrep required
-nnoremap <leader>fi :Rg<SPACE>
+nnoremap <leader>fi :Rg -i -tcpp -txml<SPACE>
+vnoremap <leader>fi "sy:Rg <C-r>s
 
 " Window resizing
-nnoremap <silent> <Leader>+ :vertical resize +5<CR>
-nnoremap <silent> <Leader>- :vertical resize -5<CR>
+nnoremap <silent> <Leader>= :resize +10<CR>
+nnoremap <silent> <Leader>- :resize -10<CR>
+nnoremap <silent> <Leader>< :vertical resize +10<CR>
+nnoremap <silent> <Leader>> :vertical resize -10<CR>
 
 " Quick .vimrc editing
 nnoremap <leader>se :tabe ~/.vimrc<CR>
@@ -175,6 +184,8 @@ if &diff
   setlocal nospell
 endif
 
+nnoremap <silent> <leader>w :x<CR>
+nnoremap <silent> <leader>Q :q!<CR>
 nnoremap <silent> <leader>q :call <SID>QuitWindow()<CR>
 function s:QuitWindow()
   if get(s:, 'is_started_as_vim_diff', 0)
@@ -215,6 +226,7 @@ let g:gitgutter_enabled=1 " enable on startup
 let g:gitgutter_map_keys=0
 nnoremap <leader>gh :GitGutterLineNrHighlightsToggle<CR>
 
+nnoremap <leader>, :v/0_0/d<CR>:%s/\[.*\]\s0_0\s//g<CR>
 
 " Cribs
 "
