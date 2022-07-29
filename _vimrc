@@ -31,6 +31,9 @@ let @m="Версия SBC сдвинута\n\n"
 
 let g:TerminusFocusReporting=0 "supress E349 https://stackoverflow.com/questions/43533302/e349-no-identifier-under-cursor
 
+set foldmethod=indent
+set foldlevelstart=99
+
 set colorcolumn=80
 highlight ColorColulmn ctermbg=0 guibg=lightgrey
 
@@ -53,6 +56,10 @@ Plug 'tpope/vim-commentary'
 Plug 'airblade/vim-gitgutter'
 Plug 'bfrg/vim-cpp-modern'
 
+Plug 'nvim-lua/plenary.nvim' " Lua funcitons, required for telescope
+Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.0' }
+Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
+
 call plug#end()
 
 
@@ -71,6 +78,7 @@ let mapleader = " "
 " let g:netrw_browse_split=4 "3
 " let g:netrw_banner=0 "disable netrw banner
 let g:netrw_winsize=50 " %
+let g:netrw_liststyle=3 " Tree instead of plain view
 
 "Disable cache since CtrlP is fast (?) enough
 let g:ctrlp_use_caching=1
@@ -105,11 +113,25 @@ nnoremap <leader>ed :g//d<left><left>
 
 " Replace substrings
 nnoremap <leader>er :%s///g<left><left><left>
+vnoremap <leader>er "sy:%s/<C-r>s//g<left><left>
 
+" Quick search selected
+vnoremap / "sy/<C-r>s
+
+" Swap .h and .cpp
+nnoremap <expr> <M-k><M-o> ":e %<.".(expand('%:e') == 'h' ? 'cpp' : 'h')."<CR>"
 
 "ripgrep required
 nnoremap <leader>fi :Rg -i -tcpp -txml<SPACE>
 vnoremap <leader>fi "sy:Rg <C-r>s
+
+" Telescope bindings
+nnoremap <leader>ff <CMD>Telescope find_files<CR>
+nnoremap <leader>fg <CMD>Telescope live_grep<CR>
+nnoremap <leader>fb <CMD>Telescope buffers<CR>
+nnoremap <leader>fp <CMD>Telescope pickers<CR>
+nnoremap <leader>fh <CMD>Telescope oldfiles<CR>
+nnoremap <leader>fr <CMD>Telescope resume<CR>
 
 " Window resizing
 nnoremap <silent> <Leader>= :resize +10<CR>
