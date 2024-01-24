@@ -8,7 +8,6 @@ set shiftwidth=4
 "set expandtab  "use spaces instead of <tab>
 set smartindent
 set nu
-set nowrap
 set ignorecase
 set smartcase
 set noswapfile
@@ -25,6 +24,7 @@ set mouse=a
 set scrolloff=7
 set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<,space:· "pretty highlight invisible symbols
 set wrap
+set linebreak "word wrap
 set splitbelow
 set splitright
 let @m="Версия SBC сдвинута\n\n"
@@ -78,7 +78,7 @@ function! ShowDocumentation()
   endif
 endfunction
 " Highlight the symbol and its references when holding the cursor.
-autocmd CursorHold * silent call CocActionAsync('highlight')
+" autocmd CursorHold * silent call CocActionAsync('highlight')
 " Symbol renaming.
 nmap <leader>rn <Plug>(coc-rename)
 " Formatting selected code.
@@ -103,7 +103,7 @@ set foldmethod=syntax
 set foldlevelstart=99
 
 " Relative (hybrid) line number
-set number relativenumber
+" set number relativenumber
 
 set colorcolumn=80
 highlight ColorColulmn ctermbg=0 guibg=lightgrey
@@ -345,9 +345,10 @@ nmap ) <Plug>(GitGutterNextHunk)
 nmap ( <Plug>(GitGutterPrevHunk)
 let g:gitgutter_enabled=1 " enable on startup
 let g:gitgutter_map_keys=0
-nnoremap <leader>gl :GitGutterLineNrHighlightsToggle<CR>
+nnoremap <leader>gh :GitGutterLineNrHighlightsToggle<CR>
 nnoremap <leader>gb :Git blame<CR>
-nnoremap <leader>gh :Gclog -- %<CR>
+nnoremap <leader>gl :Gclog -- %<CR>
+nnoremap <leader>gm :tabnew .git/COMMIT_EDITMSG<CR>
 
 nnoremap <leader>, :v/0_0/d<CR>:%s/\[.*\]\s0_0\s//g<CR>
 
